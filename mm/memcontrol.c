@@ -2633,6 +2633,33 @@ enum {
 	CHARGE_WOULDBLOCK,	/* GFP_WAIT wasn't set and no enough res. */
 };
 
+/*
+ * Processes handling oom conditions are allowed to utilize memory reserves so
+ * that they may handle the condition.
+ */
+static int mem_cgroup_oom_handler_charge(struct mem_cgroup *memcg,
+					 unsigned long csize,
+					 struct mem_cgroup **mem_over_limit)
+{
+	struct res_counter *fail_res;
+	int ret;
+
+	ret = res_counter_charge_nofail_max(&memcg->res, csize, &fail_res,
+					    memcg->oom_reserve);
+	if (!ret && do_swap_account) {
+		ret = res_counter_charge_nofail_max(&memcg->memsw, csize,
+						    &fail_res,
+						    memcg->oom_reserve);
+		if (ret) {
+			res_counter_uncharge(&memcg->res, csize);
+			*mem_over_limit = mem_cgroup_from_res_counter(fail_res,
+								      memsw);
+
+		}
+	}
+	return !ret ? CHARGE_OK : CHARGE_NOMEM;
+}
+
 static int mem_cgroup_do_charge(struct mem_cgroup *memcg, gfp_t gfp_mask,
 				unsigned int nr_pages, unsigned int min_pages,
 				bool invoke_oom)
@@ -2692,6 +2719,13 @@ static int mem_cgroup_do_charge(struct mem_cgroup *memcg, gfp_t gfp_mask,
 	if (mem_cgroup_wait_acct_move(mem_over_limit))
 		return CHARGE_RETRY;
 
+	if (current->flags & PF_OOM_HANDLER) {
+		ret = mem_cgroup_oom_handler_charge(memcg, csize,
+						    &mem_over_limit);
+		if (ret == CHARGE_OK)
+			return CHARGE_OK;
+	}
+
 	if (invoke_oom)
 		mem_cgroup_oom(mem_over_limit, gfp_mask, get_order(csize));
 
@@ -2739,7 +2773,8 @@ static int __mem_cgroup_try_charge(struct mm_struct *mm,
 		     || fatal_signal_pending(current)))
 		goto bypass;
 
-	if (unlikely(task_in_memcg_oom(current)))
+	if (unlikely(task_in_memcg_oom(current)) &&
+	    !(current->flags & PF_OOM_HANDLER))
 		goto nomem;
 
 	if (gfp_mask & __GFP_NOFAIL)
@@ -5877,6 +5912,11 @@ static int mem_cgroup_oom_register_event(struct mem_cgroup *memcg,
 	if (!event)
 		return -ENOMEM;
 
+	/*
+	 * Setting PF_OOM_HANDLER before taking memcg_oom_lock ensures it is
+	 * set before getting added to memcg->oom_notify.
+	 */
+	current->flags |= PF_OOM_HANDLER;
 	spin_lock(&memcg_oom_lock);
 
 	event->eventfd = eventfd;
@@ -5904,6 +5944,11 @@ static void mem_cgroup_oom_unregister_event(struct mem_cgroup *memcg,
 		}
 	}
 
+	/*
+	 * Clearing PF_OOM_HANDLER before dropping memcg_oom_lock ensures it is
+	 * cleared before receiving another notification.
+	 */
+	current->flags &= ~PF_OOM_HANDLER;
 	spin_unlock(&memcg_oom_lock);
 }
 
