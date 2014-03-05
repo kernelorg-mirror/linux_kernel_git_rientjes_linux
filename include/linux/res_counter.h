@@ -107,14 +107,22 @@ void res_counter_init(struct res_counter *counter, struct res_counter *parent);
  * counter->limit
  *
  * charge_nofail works the same, except that it charges the resource
- * counter unconditionally, and returns < 0 if the after the current
+ * counter unconditionally, and returns < 0 if after the current
  * charge we are over limit.
+ *
+ * charge_nofail_max is the same as charge_nofail, except that the
+ * resource counter usage can only exceed the limit by the max
+ * difference.  Unlike charge_nofail, charge_nofail_max returns < 0
+ * only if the current charge fails because of the max difference.
  */
 
 int __must_check res_counter_charge(struct res_counter *counter,
 		unsigned long val, struct res_counter **limit_fail_at);
 int res_counter_charge_nofail(struct res_counter *counter,
 		unsigned long val, struct res_counter **limit_fail_at);
+int res_counter_charge_nofail_max(struct res_counter *counter,
+		unsigned long val, struct res_counter **limit_fail_at,
+		unsigned long max);
 
 /*
  * uncharge - tell that some portion of the resource is released

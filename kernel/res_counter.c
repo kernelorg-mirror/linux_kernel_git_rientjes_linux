@@ -33,15 +33,19 @@ static u64 res_counter_uncharge_locked(struct res_counter *counter,
 }
 
 static int res_counter_charge_locked(struct res_counter *counter,
-				     unsigned long val, bool force)
+				     unsigned long val, bool force,
+				     unsigned long max)
 {
 	int ret = 0;
 
 	if (counter->usage + val > counter->limit) {
 		counter->failcnt++;
-		ret = -ENOMEM;
+		if (max == ULONG_MAX)
+			ret = -ENOMEM;
 		if (!force)
 			return ret;
+		if (counter->usage + val - counter->limit > max)
+			return -ENOMEM;
 	}
 
 	counter->usage += val;
@@ -51,7 +55,8 @@ static int res_counter_charge_locked(struct res_counter *counter,
 }
 
 static int __res_counter_charge(struct res_counter *counter, unsigned long val,
-				struct res_counter **limit_fail_at, bool force)
+				struct res_counter **limit_fail_at, bool force,
+				unsigned long max)
 {
 	int ret, r;
 	unsigned long flags;
@@ -62,7 +67,7 @@ static int __res_counter_charge(struct res_counter *counter, unsigned long val,
 	local_irq_save(flags);
 	for (c = counter; c != NULL; c = c->parent) {
 		spin_lock(&c->lock);
-		r = res_counter_charge_locked(c, val, force);
+		r = res_counter_charge_locked(c, val, force, max);
 		spin_unlock(&c->lock);
 		if (r < 0 && !ret) {
 			ret = r;
@@ -87,13 +92,23 @@ static int __res_counter_charge(struct res_counter *counter, unsigned long val,
 int res_counter_charge(struct res_counter *counter, unsigned long val,
 			struct res_counter **limit_fail_at)
 {
-	return __res_counter_charge(counter, val, limit_fail_at, false);
+	return __res_counter_charge(counter, val, limit_fail_at, false,
+				    ULONG_MAX);
 }
 
 int res_counter_charge_nofail(struct res_counter *counter, unsigned long val,
 			      struct res_counter **limit_fail_at)
 {
-	return __res_counter_charge(counter, val, limit_fail_at, true);
+	return __res_counter_charge(counter, val, limit_fail_at, true,
+				    ULONG_MAX);
+}
+
+int res_counter_charge_nofail_max(struct res_counter *counter,
+				  unsigned long val,
+				  struct res_counter **limit_fail_at,
+				  unsigned long max)
+{
+	return __res_counter_charge(counter, val, limit_fail_at, true, max);
 }
 
 u64 res_counter_uncharge_until(struct res_counter *counter,
