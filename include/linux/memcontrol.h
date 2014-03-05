@@ -158,6 +158,7 @@ bool mem_cgroup_oom_synchronize(bool wait);
 
 extern bool mem_cgroup_alloc_use_oom_reserve(void);
 extern u64 mem_cgroup_root_oom_reserve(void);
+extern void mem_cgroup_root_oom_notify(void);
 
 #ifdef CONFIG_MEMCG_SWAP
 extern int do_swap_account;
@@ -408,6 +409,10 @@ static inline bool mem_cgroup_alloc_use_oom_reserve(void)
 static inline u64 mem_cgroup_root_oom_reserve(void)
 {
 	return 0;
+}
+
+static inline void mem_cgroup_root_oom_notify(void)
+{
 }
 
 static inline void mem_cgroup_inc_page_stat(struct page *page,
