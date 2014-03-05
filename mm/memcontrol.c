@@ -5976,13 +5976,13 @@ static int mem_cgroup_oom_control_write(struct cgroup_subsys_state *css,
 	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
 	struct mem_cgroup *parent = mem_cgroup_from_css(css_parent(&memcg->css));
 
-	/* cannot set to root cgroup and only 0 and 1 are allowed */
-	if (!parent || !((val == 0) || (val == 1)))
+	/* only 0 and 1 are allowed */
+	if (val != !!val)
 		return -EINVAL;
 
 	mutex_lock(&memcg_create_mutex);
 	/* oom-kill-disable is a flag for subhierarchy. */
-	if ((parent->use_hierarchy) || memcg_has_children(memcg)) {
+	if (parent && (parent->use_hierarchy || memcg_has_children(memcg))) {
 		mutex_unlock(&memcg_create_mutex);
 		return -EINVAL;
 	}
@@ -6060,6 +6060,11 @@ bool mem_cgroup_alloc_use_oom_reserve(void)
 u64 mem_cgroup_root_oom_reserve(void)
 {
 	return root_mem_cgroup->oom_reserve >> PAGE_SHIFT;
+}
+
+bool mem_cgroup_root_oom_disable(void)
+{
+	return root_mem_cgroup->oom_kill_disable;
 }
 
 #ifdef CONFIG_MEMCG_KMEM
