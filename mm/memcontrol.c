@@ -6026,7 +6026,31 @@ static int mem_cgroup_oom_reserve_write(struct cgroup_subsys_state *css,
 	if (ret)
 		return ret;
 
-	return mem_cgroup_resize_oom_reserve(memcg, val);
+	ret = mem_cgroup_resize_oom_reserve(memcg, val);
+	if (ret)
+		return ret;
+
+	/* Zone oom watermarks need to be reset for root memcg changes */
+	if (memcg == root_mem_cgroup)
+		setup_per_zone_wmarks();
+	return 0;
+}
+
+bool mem_cgroup_alloc_use_oom_reserve(void)
+{
+	bool ret = false;
+
+	rcu_read_lock();
+	if (mem_cgroup_from_task(current) == root_mem_cgroup)
+		ret = true;
+	rcu_read_unlock();
+
+	return ret;
+}
+
+u64 mem_cgroup_root_oom_reserve(void)
+{
+	return root_mem_cgroup->oom_reserve >> PAGE_SHIFT;
 }
 
 #ifdef CONFIG_MEMCG_KMEM

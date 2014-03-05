@@ -156,6 +156,9 @@ static inline bool task_in_memcg_oom(struct task_struct *p)
 
 bool mem_cgroup_oom_synchronize(bool wait);
 
+extern bool mem_cgroup_alloc_use_oom_reserve(void);
+extern u64 mem_cgroup_root_oom_reserve(void);
+
 #ifdef CONFIG_MEMCG_SWAP
 extern int do_swap_account;
 #endif
@@ -395,6 +398,16 @@ static inline bool task_in_memcg_oom(struct task_struct *p)
 static inline bool mem_cgroup_oom_synchronize(bool wait)
 {
 	return false;
+}
+
+static inline bool mem_cgroup_alloc_use_oom_reserve(void)
+{
+	return false;
+}
+
+static inline u64 mem_cgroup_root_oom_reserve(void)
+{
+	return 0;
 }
 
 static inline void mem_cgroup_inc_page_stat(struct page *page,

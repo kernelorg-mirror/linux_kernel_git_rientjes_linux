@@ -403,6 +403,11 @@ become subtly broken, and prone to deadlock under high loads.
 
 Setting this too high will OOM your machine instantly.
 
+If root memory controller OOM reserves are configured (see
+Documentation/cgroups/memory.txt), some of this memory may also be
+used for userspace processes that are responsible for handling
+system OOM conditions.
+
 =============================================================
 
 min_slab_ratio:

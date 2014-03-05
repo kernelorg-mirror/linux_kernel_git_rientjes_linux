@@ -1722,6 +1722,12 @@ bool zone_watermark_ok_safe(struct zone *z, int order, unsigned long mark,
 								free_pages);
 }
 
+static bool use_oom_reserves(void)
+{
+	return (current->flags & PF_OOM_HANDLER) && !in_interrupt() &&
+	       mem_cgroup_alloc_use_oom_reserve();
+}
+
 #ifdef CONFIG_NUMA
 /*
  * zlc_setup - Setup for "zonelist cache".  Uses cached zone data to
@@ -1982,6 +1988,9 @@ zonelist_scan:
 			goto this_zone_full;
 
 		mark = zone->watermark[alloc_flags & ALLOC_WMARK_MASK];
+		if (unlikely(use_oom_reserves()))
+			mark -= min_wmark_pages(zone) - oom_wmark_pages(zone);
+
 		if (!zone_watermark_ok(zone, order, mark,
 				       classzone_idx, alloc_flags)) {
 			int ret;
@@ -5595,11 +5604,15 @@ static void __setup_per_zone_wmarks(void)
 	}
 
 	for_each_zone(zone) {
-		u64 tmp;
+		u64 tmp, oom;
 
 		spin_lock_irqsave(&zone->lock, flags);
 		tmp = (u64)pages_min * zone->managed_pages;
 		do_div(tmp, lowmem_pages);
+		oom = mem_cgroup_root_oom_reserve() * zone->managed_pages;
+		do_div(oom, lowmem_pages);
+		if (oom > tmp)
+			oom = tmp;
 		if (is_highmem(zone)) {
 			/*
 			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
@@ -5615,12 +5628,14 @@ static void __setup_per_zone_wmarks(void)
 			min_pages = zone->managed_pages / 1024;
 			min_pages = clamp(min_pages, SWAP_CLUSTER_MAX, 128UL);
 			zone->watermark[WMARK_MIN] = min_pages;
+			zone->watermark[WMARK_OOM] = min_pages;
 		} else {
 			/*
 			 * If it's a lowmem zone, reserve a number of pages
 			 * proportionate to the zone's size.
 			 */
 			zone->watermark[WMARK_MIN] = tmp;
+			zone->watermark[WMARK_OOM] = oom;
 		}
 
 		zone->watermark[WMARK_LOW]  = min_wmark_pages(zone) + (tmp >> 2);

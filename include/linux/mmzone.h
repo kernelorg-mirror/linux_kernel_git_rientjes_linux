@@ -226,12 +226,14 @@ struct lruvec {
 typedef unsigned __bitwise__ isolate_mode_t;
 
 enum zone_watermarks {
+	WMARK_OOM,
 	WMARK_MIN,
 	WMARK_LOW,
 	WMARK_HIGH,
 	NR_WMARK
 };
 
+#define oom_wmark_pages(z) (z->watermark[WMARK_OOM])
 #define min_wmark_pages(z) (z->watermark[WMARK_MIN])
 #define low_wmark_pages(z) (z->watermark[WMARK_LOW])
 #define high_wmark_pages(z) (z->watermark[WMARK_HIGH])

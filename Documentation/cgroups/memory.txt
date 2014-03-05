@@ -798,6 +798,15 @@ are waiting on oom notifications to keep this vaue as minimal as
 possible, or allow it to be large enough so that its text can still
 be pagefaulted in under oom conditions when the value is known.
 
+For root processes that are responsible for handling system oom
+conditions, this reserve comes from the per-zone watermarks rather than
+exceeding the limit of the root memcg (since the limit of that memcg is
+always infinity).  Such processes may allocate into per-zone memory
+reserves proportional to the setting of the root memcg's oom reserve.
+If setting an oom reserve for the root memcg to handle system oom
+conditions, it is recommended that min_free_kbytes (see
+Documentation/sysctl/vm.txt) exceeds this value.
+
 11. Memory Pressure
 
 The pressure level notifications can be used to monitor the memory
