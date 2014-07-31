@@ -15,6 +15,7 @@
 #define MOUSEDEV_MINORS		31
 #define MOUSEDEV_MIX		63
 
+#include <linux/fs.h>
 #include <linux/sched.h>
 #include <linux/slab.h>
 #include <linux/poll.h>

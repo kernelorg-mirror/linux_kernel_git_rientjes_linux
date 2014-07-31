@@ -15,6 +15,7 @@
 #define EVDEV_MIN_BUFFER_SIZE	64U
 #define EVDEV_BUF_PACKETS	8
 
+#include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/sched.h>
 #include <linux/slab.h>

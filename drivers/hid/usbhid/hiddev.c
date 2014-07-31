@@ -25,6 +25,7 @@
  * e-mail - mail your message to Paul Stewart <stewart@wetlogic.net>
  */
 
+#include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/slab.h>
 #include <linux/module.h>

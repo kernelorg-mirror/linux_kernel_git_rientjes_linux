@@ -24,6 +24,7 @@
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
 #include <linux/cdev.h>
+#include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/sched.h>
 #include <linux/hid-roccat.h>

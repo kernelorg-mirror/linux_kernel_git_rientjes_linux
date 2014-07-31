@@ -39,6 +39,7 @@ Supports:
 #include <linux/mutex.h>
 #include <linux/errno.h>
 #include <linux/input.h>
+#include <linux/semaphore.h>
 #include <linux/slab.h>
 #include <linux/poll.h>
 #include <linux/usb.h>

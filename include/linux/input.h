@@ -20,9 +20,10 @@
  */
 
 #include <linux/device.h>
-#include <linux/fs.h>
 #include <linux/timer.h>
 #include <linux/mod_devicetable.h>
+
+struct file;
 
 /**
  * struct input_value - input value representation
