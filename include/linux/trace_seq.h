@@ -1,9 +1,8 @@
 #ifndef _LINUX_TRACE_SEQ_H
 #define _LINUX_TRACE_SEQ_H
-
-#include <linux/fs.h>
-
 #include <asm/page.h>
+
+struct path;
 
 /*
  * Trace sequences are used to allow a function to call several other functions
