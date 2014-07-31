@@ -13,6 +13,7 @@
 #include <linux/highuid.h>
 #include <linux/security.h>
 #include <linux/syscalls.h>
+#include <uapi/linux/limits.h>
 
 #include <asm/uaccess.h>
 

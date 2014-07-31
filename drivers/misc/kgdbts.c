@@ -94,6 +94,7 @@
  *
  */
 
+#include <linux/fs.h>
 #include <linux/kernel.h>
 #include <linux/kgdb.h>
 #include <linux/ctype.h>

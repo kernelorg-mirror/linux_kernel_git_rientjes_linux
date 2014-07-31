@@ -41,7 +41,6 @@ struct perf_guest_info_callbacks {
 #include <linux/rcupdate.h>
 #include <linux/spinlock.h>
 #include <linux/hrtimer.h>
-#include <linux/fs.h>
 #include <linux/pid_namespace.h>
 #include <linux/workqueue.h>
 #include <linux/ftrace.h>
@@ -53,6 +52,8 @@ struct perf_guest_info_callbacks {
 #include <linux/sysfs.h>
 #include <linux/perf_regs.h>
 #include <asm/local.h>
+
+struct fasync_struct;
 
 struct perf_callchain_entry {
 	__u64				nr;

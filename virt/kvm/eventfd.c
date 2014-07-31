@@ -28,6 +28,7 @@
 #include <linux/wait.h>
 #include <linux/poll.h>
 #include <linux/file.h>
+#include <linux/fs.h>
 #include <linux/list.h>
 #include <linux/eventfd.h>
 #include <linux/kernel.h>
