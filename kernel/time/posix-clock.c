@@ -20,6 +20,7 @@
 #include <linux/device.h>
 #include <linux/export.h>
 #include <linux/file.h>
+#include <linux/fs.h>
 #include <linux/posix-clock.h>
 #include <linux/slab.h>
 #include <linux/syscalls.h>

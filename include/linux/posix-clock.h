@@ -21,11 +21,11 @@
 #define _LINUX_POSIX_CLOCK_H_
 
 #include <linux/cdev.h>
-#include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/posix-timers.h>
 #include <linux/rwsem.h>
 
+struct file;
 struct posix_clock;
 
 /**

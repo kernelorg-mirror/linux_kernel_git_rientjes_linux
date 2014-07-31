@@ -17,6 +17,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+#include <linux/fs.h>
 #include <linux/idr.h>
 #include <linux/device.h>
 #include <linux/err.h>
