@@ -12,6 +12,7 @@
 
 #include <linux/module.h>
 #include <linux/init.h>
+#include <linux/proc_fs.h>
 #include <linux/sched.h>
 #include <linux/time.h>
 #include <linux/kernel.h>

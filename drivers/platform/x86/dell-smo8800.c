@@ -19,6 +19,7 @@
 
 #define DRIVER_NAME "smo8800"
 
+#include <linux/fs.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/acpi.h>

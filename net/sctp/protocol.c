@@ -45,6 +45,7 @@
 #include <linux/init.h>
 #include <linux/netdevice.h>
 #include <linux/inetdevice.h>
+#include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/bootmem.h>
 #include <linux/highmem.h>

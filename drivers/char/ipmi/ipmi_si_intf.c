@@ -50,6 +50,7 @@
 #include <linux/delay.h>
 #include <linux/list.h>
 #include <linux/pci.h>
+#include <linux/proc_fs.h>
 #include <linux/ioport.h>
 #include <linux/notifier.h>
 #include <linux/mutex.h>

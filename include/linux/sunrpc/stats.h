@@ -9,7 +9,7 @@
 #ifndef _LINUX_SUNRPC_STATS_H
 #define _LINUX_SUNRPC_STATS_H
 
-#include <linux/proc_fs.h>
+struct proc_dir_entry;
 
 struct rpc_stat {
 	const struct rpc_program *program;

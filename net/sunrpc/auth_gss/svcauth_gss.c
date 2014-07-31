@@ -41,6 +41,7 @@
 #include <linux/types.h>
 #include <linux/module.h>
 #include <linux/pagemap.h>
+#include <linux/proc_fs.h>
 #include <linux/user_namespace.h>
 
 #include <linux/sunrpc/auth_gss.h>

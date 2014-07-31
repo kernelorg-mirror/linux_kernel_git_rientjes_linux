@@ -7,6 +7,7 @@
  */
 
 #include <linux/module.h>
+#include <linux/proc_fs.h>
 #include <linux/skbuff.h>
 #include <asm/unaligned.h>
 #include <net/tcp.h>

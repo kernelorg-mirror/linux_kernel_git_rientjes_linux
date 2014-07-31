@@ -10,7 +10,6 @@
 #include <linux/ioport.h>
 #include <linux/ata.h>
 #include <linux/blkdev.h>
-#include <linux/proc_fs.h>
 #include <linux/interrupt.h>
 #include <linux/bitops.h>
 #include <linux/bio.h>
@@ -38,6 +37,7 @@
 #define ERROR_RECAL	1	/* Recalibrate every 2nd retry */
 
 struct device;
+struct proc_dir_entry;
 
 /* Error codes returned in rq->errors to the higher part of the driver. */
 enum {

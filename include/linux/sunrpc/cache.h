@@ -16,7 +16,8 @@
 #include <linux/kref.h>
 #include <linux/slab.h>
 #include <linux/atomic.h>
-#include <linux/proc_fs.h>
+
+struct proc_dir_entry;
 
 /*
  * Each cache requires:

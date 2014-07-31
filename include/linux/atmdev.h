@@ -14,7 +14,7 @@
 #include <uapi/linux/atmdev.h>
 
 #ifdef CONFIG_PROC_FS
-#include <linux/proc_fs.h>
+struct proc_dir_entry;
 
 extern struct proc_dir_entry *atm_proc_root;
 #endif

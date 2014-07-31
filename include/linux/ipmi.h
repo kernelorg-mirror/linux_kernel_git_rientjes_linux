@@ -36,7 +36,6 @@
 #include <uapi/linux/ipmi.h>
 
 #include <linux/list.h>
-#include <linux/proc_fs.h>
 
 struct module;
 struct device;

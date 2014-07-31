@@ -21,6 +21,7 @@
 #ifndef __NFSD_NETNS_H__
 #define __NFSD_NETNS_H__
 
+#include <linux/fs.h>
 #include <net/net_namespace.h>
 #include <net/netns/generic.h>
 

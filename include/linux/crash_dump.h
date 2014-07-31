@@ -3,7 +3,6 @@
 
 #ifdef CONFIG_CRASH_DUMP
 #include <linux/kexec.h>
-#include <linux/proc_fs.h>
 #include <linux/elf.h>
 
 #include <asm/pgtable.h> /* for pgprot_t */

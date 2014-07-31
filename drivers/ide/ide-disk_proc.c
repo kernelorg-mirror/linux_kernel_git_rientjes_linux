@@ -2,6 +2,7 @@
 #include <linux/ide.h>
 #include <linux/slab.h>
 #include <linux/export.h>
+#include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 
 #include "ide-disk.h"

@@ -1,10 +1,10 @@
 #ifndef __NETNS_NETFILTER_H
 #define __NETNS_NETFILTER_H
 
-#include <linux/proc_fs.h>
 #include <linux/netfilter.h>
 
 struct nf_logger;
+struct proc_dir_entry;
 
 struct netns_nf {
 #if defined CONFIG_PROC_FS

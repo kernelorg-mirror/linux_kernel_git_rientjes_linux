@@ -8,7 +8,6 @@
 
 
 #include <linux/jiffies.h>
-#include <linux/proc_fs.h>
 #include <linux/spinlock.h>
 #include <linux/wait.h>
 #include <linux/irqreturn.h>

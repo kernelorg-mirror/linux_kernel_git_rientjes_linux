@@ -35,7 +35,6 @@
 #define __LINUX_IPMI_SMI_H
 
 #include <linux/ipmi_msgdefs.h>
-#include <linux/proc_fs.h>
 #include <linux/platform_device.h>
 #include <linux/ipmi.h>
 
