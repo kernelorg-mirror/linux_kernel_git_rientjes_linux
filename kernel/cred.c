@@ -9,6 +9,7 @@
  * 2 of the Licence, or (at your option) any later version.
  */
 #include <linux/export.h>
+#include <linux/fs.h>
 #include <linux/cred.h>
 #include <linux/slab.h>
 #include <linux/sched.h>

@@ -15,7 +15,6 @@
 #include <linux/sched.h>
 #include <linux/types.h>
 #include <linux/init.h>
-#include <linux/fs.h>
 
 #include <asm/ftrace.h>
 
@@ -42,6 +41,8 @@
 
 
 struct module;
+struct inode;
+struct file;
 struct ftrace_hash;
 
 #ifdef CONFIG_FUNCTION_TRACER
