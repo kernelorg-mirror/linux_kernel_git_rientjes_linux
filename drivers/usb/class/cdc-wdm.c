@@ -11,6 +11,7 @@
  *
  * Many thanks to Carl Nordbeck
  */
+#include <linux/fs.h>
 #include <linux/kernel.h>
 #include <linux/errno.h>
 #include <linux/ioctl.h>

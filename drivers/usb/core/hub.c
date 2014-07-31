@@ -9,6 +9,7 @@
  */
 
 #include <linux/kernel.h>
+#include <linux/kdev_t.h>
 #include <linux/errno.h>
 #include <linux/module.h>
 #include <linux/moduleparam.h>
