@@ -111,6 +111,7 @@
  * Copyright (C) 2000 by Tim Waugh (added LPSETTIMEOUT ioctl)
  */
 
+#include <linux/fs.h>
 #include <linux/module.h>
 #include <linux/init.h>
 

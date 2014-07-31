@@ -12,7 +12,6 @@
 #include <linux/sem.h>
 #include <linux/socket.h>
 #include <linux/if.h>
-#include <linux/fs.h>
 #include <linux/aio_abi.h>	/* for aio_context_t */
 #include <linux/unistd.h>
 
@@ -68,6 +67,8 @@ typedef struct compat_sigaltstack {
 
 #define compat_jiffies_to_clock_t(x)	\
 		(((unsigned long)(x) * COMPAT_USER_HZ) / HZ)
+
+struct file_handle;
 
 typedef __compat_uid32_t	compat_uid_t;
 typedef __compat_gid32_t	compat_gid_t;
