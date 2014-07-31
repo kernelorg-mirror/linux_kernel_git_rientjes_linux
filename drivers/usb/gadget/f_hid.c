@@ -9,6 +9,7 @@
  * (at your option) any later version.
  */
 
+#include <linux/fs.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/hid.h>

@@ -32,6 +32,7 @@
  * can be buffered up before the light change makes it to the interface.
  */
 
+#include <linux/fs.h>
 #include <linux/kernel.h>
 #include <linux/errno.h>
 #include <linux/slab.h>
