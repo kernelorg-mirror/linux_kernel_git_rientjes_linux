@@ -26,6 +26,7 @@
 #include <sound/asound.h>
 #include <sound/memalloc.h>
 #include <sound/minors.h>
+#include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/mm.h>
 #include <linux/bitops.h>

@@ -9,6 +9,7 @@
  * the Free Software Foundation.
  */
 
+#include <linux/fs.h>
 #include <linux/kref.h>
 #include <linux/sched.h>
 #include <linux/slab.h>

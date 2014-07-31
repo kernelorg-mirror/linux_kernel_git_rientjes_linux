@@ -18,6 +18,7 @@
  * Intel MIC Host driver.
  *
  */
+#include <linux/fs.h>
 #include <linux/poll.h>
 #include <linux/pci.h>
 

@@ -27,6 +27,7 @@
 #include "seq_oss_readq.h"
 #include "seq_oss_timer.h"
 #include "seq_oss_event.h"
+#include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/export.h>
 #include <linux/moduleparam.h>

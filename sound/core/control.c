@@ -19,6 +19,7 @@
  *
  */
 
+#include <linux/fs.h>
 #include <linux/threads.h>
 #include <linux/interrupt.h>
 #include <linux/module.h>

@@ -11,6 +11,7 @@
  * published by the Free Software Foundation.
 */
 
+#include <linux/fs.h>
 #include <linux/rtc.h>
 #include <linux/sched.h>
 #include <linux/module.h>

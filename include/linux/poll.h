@@ -6,7 +6,6 @@
 #include <linux/ktime.h>
 #include <linux/wait.h>
 #include <linux/string.h>
-#include <linux/fs.h>
 #include <linux/sysctl.h>
 #include <asm/uaccess.h>
 #include <uapi/linux/poll.h>
@@ -23,6 +22,7 @@ extern struct ctl_table epoll_table[]; /* for sysctl */
 
 #define DEFAULT_POLLMASK (POLLIN | POLLOUT | POLLRDNORM | POLLWRNORM)
 
+struct file;
 struct poll_table_struct;
 
 /* 

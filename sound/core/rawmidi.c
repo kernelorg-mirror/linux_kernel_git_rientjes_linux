@@ -20,6 +20,7 @@
  */
 
 #include <sound/core.h>
+#include <linux/fs.h>
 #include <linux/major.h>
 #include <linux/init.h>
 #include <linux/sched.h>

@@ -56,6 +56,7 @@
  * Added GETFLAGS/SETFLAGS ioctls, Fred Barnes, 04/2001
  */
 
+#include <linux/fs.h>
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/sched.h>

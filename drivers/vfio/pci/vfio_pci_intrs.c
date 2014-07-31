@@ -14,6 +14,7 @@
  */
 
 #include <linux/device.h>
+#include <linux/fs.h>
 #include <linux/interrupt.h>
 #include <linux/eventfd.h>
 #include <linux/pci.h>
