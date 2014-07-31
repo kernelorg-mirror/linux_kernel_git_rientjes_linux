@@ -3,8 +3,10 @@
 
 #include <linux/in.h>
 #include <linux/pim.h>
-#include <net/sock.h>
+#include <linux/skbuff.h>
 #include <uapi/linux/mroute.h>
+
+struct sock;
 
 #ifdef CONFIG_IP_MROUTE
 static inline int ip_mroute_opt(int opt)
