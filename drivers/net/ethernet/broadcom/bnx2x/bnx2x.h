@@ -19,6 +19,7 @@
 #include <linux/dma-mapping.h>
 #include <linux/types.h>
 #include <linux/pci_regs.h>
+#include <linux/semaphore.h>
 
 /* compilation time flags */
 

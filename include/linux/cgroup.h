@@ -17,16 +17,17 @@
 #include <linux/rwsem.h>
 #include <linux/idr.h>
 #include <linux/workqueue.h>
-#include <linux/fs.h>
 #include <linux/percpu-refcount.h>
 #include <linux/seq_file.h>
 #include <linux/kernfs.h>
 #include <linux/wait.h>
+#include <uapi/linux/limits.h>
 
 #ifdef CONFIG_CGROUPS
 
 struct cgroup_root;
 struct cgroup_subsys;
+struct dentry;
 struct inode;
 struct cgroup;
 

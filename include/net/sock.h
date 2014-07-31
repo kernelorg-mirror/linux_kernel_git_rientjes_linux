@@ -61,6 +61,7 @@
 #include <linux/sched.h>
 
 #include <linux/filter.h>
+#include <linux/fs.h>
 #include <linux/rculist_nulls.h>
 #include <linux/poll.h>
 

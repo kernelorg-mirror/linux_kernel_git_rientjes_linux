@@ -10,6 +10,7 @@
 #include <linux/netdevice.h>
 #include <linux/interrupt.h>
 #include <linux/rcupdate.h>
+#include <linux/semaphore.h>
 #include <linux/list.h>
 
 union inet_addr {
